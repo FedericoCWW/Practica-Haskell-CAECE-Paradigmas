@@ -58,3 +58,14 @@ term :: [a] -> Int -> a
 term (x:xs) 0 = x
 term [] b = error "lista vacia"
 term (x:xs) b = if (length xs < b) then error "error indice excedido" else term xs (b-1)
+
+-- forma mas simple sin lsitas auxiliares
+revl :: [a] -> [a]
+revl [] = []
+revl (x:xs) = revl xs ++ [x]
+
+ -- usar prelude Eq
+palindromo :: (Eq a) => [a] -> Bool
+palindromo xs = xs == revl xs
+
+ -- importante '->' es para funciones explicitas. '=>' es para cualquier tipo a que es de una instancia Eq, ord, NUm etc.
