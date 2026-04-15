@@ -4,6 +4,7 @@
 {- HLINT ignore "Use list literal pattern" -}
 import Data.Text as Tx(drop, take)
 import Prelude hiding (drop)
+import Text.Printf (printf)
 
 main = do
   putStrLn "Hello, everybody!"
@@ -69,3 +70,14 @@ palindromo :: (Eq a) => [a] -> Bool
 palindromo xs = xs == revl xs
 
  -- importante '->' es para funciones explicitas. '=>' es para cualquier tipo a que es de una instancia Eq, ord, NUm etc.
+
+partes :: [a] -> [[a]]
+partes [] = [[]]
+partes (x:xs) =  partes2 ++ partes3   -- partes2: partes sin x y partes3: partes con x
+    where 
+      partes2 = partes xs
+      partes3  = [x : subparte | subparte <- partes2]
+
+
+decahex :: Int -> [Char]
+decahex a = printf "%X" a
