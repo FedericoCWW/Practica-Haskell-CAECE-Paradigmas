@@ -3,6 +3,7 @@
 -- Universidad CAECE - Paradigmas de Programación
 -- ============================================================
 {- HLINT ignore "Use tuple-section" -}
+{- HLINT ignore "Redundant bracket" -}
 
 module PF3 where
 
@@ -58,6 +59,10 @@ myFilter p (x:xs)
   | p x       = x : myFilter p xs
   | otherwise = myFilter p xs
 
+filtro :: (a -> Bool) -> [a] -> [a]
+filtro f [] = []
+filtro f (x:xs)= if (f x) then (x: filtro f xs) else (filtro f xs) 
+
 
 -- ============================================================
 -- Ejercicio 6 - Composicion (o), ultimo, segundo
@@ -104,7 +109,7 @@ sucesor :: Int -> Int
 sucesor = sumaCurr 1
 
 predecesor :: Int -> Int
-predecesor x = sumaCurr x (-1)
+predecesor x = sumaCurr x (-1) 
 
 mitad :: Int -> Int
 mitad x = divCurr x 2
@@ -493,11 +498,19 @@ llordenada rel xss = ordenada rel (concat xss)
 -- Ejercicio 32 - foldrN y foldrN2
 -- ============================================================
 
+
 foldrN :: ([a] -> b -> b) -> b -> [[a]] -> b
 foldrN _ b [] = b
-foldrN f b xss
-  | null (head xss) = b
-  | otherwise = f (map head xss) (foldrN f b (map tail xss))
+foldrN f b xss = if null (head xss) then b else f (map head xss) (foldrN f b (map tail xss))
+
+-- FoldrN con guardas
+
+-- foldrN :: ([a] -> b -> b) -> b -> [[a]] -> b
+-- foldrN _ b [] = b
+-- foldrN f b xss
+--   | null (head xss) = b
+--   | otherwise = f (map head xss) (foldrN f b (map tail xss))
+
 
 foldrN2 :: (a -> b -> b) -> b -> [[a]] -> [b]
 foldrN2 f b xss = map (foldr f b) (foldrN (:) [] xss)
