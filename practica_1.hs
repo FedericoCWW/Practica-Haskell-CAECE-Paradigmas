@@ -2,6 +2,7 @@
 {- HLINT ignore "Use foldr" -}
 {- HLINT ignore "Redundant bracket" -}
 {- HLINT ignore "Use list literal pattern" -}
+{- HLINT ignore "Eta reduce" -}
 import Data.Text as Tx(drop, take)
 import Prelude hiding (drop)
 import Text.Printf (printf)
@@ -45,6 +46,7 @@ divpor a 0 = False
 divpor a b =  mod a b == 0
 
 
+
 func = tail [1,2,3,4]
 
 esvacia :: [a] -> Bool
@@ -81,3 +83,11 @@ partes (x:xs) =  partes2 ++ partes3   -- partes2: partes sin x y partes3: partes
 
 decahex :: Int -> [Char]
 decahex a = printf "%X" a
+
+f :: [([[Char]], [Int] -> Int)]
+f = (++) ([([[]],length),(["Hola","que", "tal"],head)]) (tail [])
+
+aaa x = case x of 
+             []     ->  [1]
+             [x]    ->  [x]
+             (x:xs) ->  xs
